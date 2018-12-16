@@ -1,7 +1,5 @@
 # Styler
 
-```npm i styler```
-
 ## Story
 
 <details>
