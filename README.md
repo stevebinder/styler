@@ -2,6 +2,8 @@
 
 ```npm i styler```
 
+## Story
+
 <details>
   <summary>Joe is a software engineer...</summary>
 
@@ -61,6 +63,7 @@ export default () => (
   </div>
 );
 ```
+
 Nice job Joe! You really showed Jim. You should go over and shove your commit in his face! Better yet, demand he reviews your PR immediately.
 
 But wait just a second there Joe... here comes Joy, she is the office know-it-all. While you've been too busy plotting your next malevolent move she's swooped in and is carefully studying your code.
@@ -68,6 +71,7 @@ But wait just a second there Joe... here comes Joy, she is the office know-it-al
 "That's obtuse!" Joy says, "Why don't you do it this way!?"
 
 Joe has no idea what she's talking about. The code is perfect. Stunned, Joy grabs Joe's keyboard and produces this little gem:
+
 ```js
 import styler from 'styler';
 
@@ -90,6 +94,7 @@ export default () => (
 What on earth just happened!? Joe says, he's completely stunned. onfounded, Joe stares at his screen while the drool pours from his bottom lip.
 
 But just then Joe remembers: he is pretty slick. He wipes the drool from his face, does a little studying, and within the hour is producing masterpieces like this to the amazement of his coworkers:
+
 ```js
 import s from 'styler';
 
@@ -106,6 +111,7 @@ export default () => (
   </div>
 );
 ```
+
 Joe is now the office hero. Not only is he twice as fast at styling and can't control the urge to grin menacingly at Jim... who still sucks.
 </details>
 
@@ -135,6 +141,7 @@ Joe is now the office hero. Not only is he twice as fast at styling and can't co
 
 ## Configuration
 By default, Styler runs in **strict** mode which means it converts all numerical values to numbers. However, you may want to generate valid css in which case all numerical values will be converted to strings.
+
 |input|strict output|css output|
 |---|---|---|
 |```0``` or ```"0px"```|```0```|```"0px"```|
@@ -142,9 +149,11 @@ By default, Styler runs in **strict** mode which means it converts all numerical
 |50 or ```"50px"```|```50```|```"50px"```|
 |100 or ```"100ms"```|```100```|```"100ms"```|
 |```"200deg"```|```"200deg"```|```"200deg"```|
+
 _** Note that units other than px, pt, ms, and s will not be converted._
 
 Change to **css** mode by calling **Styler.configure** in your index file:
+
 ```js
 Styler.configure({ mode: 'css' });
 ```
