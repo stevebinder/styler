@@ -109,6 +109,7 @@ export default () => (
 Joe is now the office hero. Not only is he twice as fast at styling and can't control the urge to grin menacingly at Jim... who still sucks.
 </details>
 
+## Cheatsheet
 
 |Method|Alias|
 |---|---|
