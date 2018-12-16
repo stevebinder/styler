@@ -18,11 +18,12 @@ import radius from './radius';
 import square from './square';
 import transition from './transition';
 import transform from './transform';
-import { configure, convert, wrap } from './utils';
+import { configure, wrap } from './utils';
 
-const styler = (...args) => convert(...args);
+const styler = obj => wrap(() => obj);
 
 styler.configure = configure;
+styler.with = wrap;
 
 [
   [animation, 'animation', 'anim', 'a'],

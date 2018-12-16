@@ -115,7 +115,9 @@ export const wrap = (method, originator) => (...args) => {
   const pass = args.length === 1 && isString(args[0])
     ? parse(args[0])
     : args;
-  const converted = Object.entries(method(...pass)).reduce(
+  const raw = method(...pass);
+  const safe = raw && typeof raw === 'object' ? raw : {};
+  const converted = Object.entries(safe).reduce(
     (result, [key, value]) => ({
       ...result,
       [key]: convert(value),
