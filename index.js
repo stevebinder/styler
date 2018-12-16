@@ -21,7 +21,6 @@ import width from './width';
 const styler = obj => wrap(() => obj, styler)();
 
 extend(styler, 'configure', configure);
-extend(styler, 'then', wrap);
 
 build(styler, [
   [animation, 'animation', 'an'],
