@@ -1,0 +1,16 @@
+{
+  "author": "Steve Binder <email@stevebinder.com>",
+  "description": "Concise styling.",
+  "keywords": [
+    "css",
+    "style",
+    "styles"
+  ],
+  "license": "MIT",
+  "name": "styler",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stevebinder/styler"
+  },
+  "version": "0.0.1"
+}
