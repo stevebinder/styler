@@ -1,4 +1,4 @@
-export default () => ({
+export default (direction = 'row') => ({
   alignItems: 'center',
   display: 'flex',
   flexDirection: 'row',

@@ -1,1 +1,0 @@
-export default (height, width) => ({ height, width });

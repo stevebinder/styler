@@ -1,3 +1,3 @@
-import { make4Way } from './helpers';
+import { make4WayExports } from './helpers';
 
-export default make4Way('padding');
+export default make4WayExports('padding');

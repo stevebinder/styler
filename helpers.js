@@ -20,3 +20,14 @@ export const make4Way = key => (top, right, bottom, left) => {
     [`${key}Top`]: a,
   };
 };
+
+export const make4WayExports = key => {
+  const way = make4Way(key);
+  return {
+    [key]: way,
+    t: value => way(value, 0, 0, 0),
+    r: value => way(0, value, 0, 0),
+    b: value => way(0, 0, value, 0),
+    l: value => way(0, 0, 0, value),
+  };
+};

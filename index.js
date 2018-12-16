@@ -6,51 +6,43 @@ import border from './border';
 import center from './center';
 import circle from './circle';
 import color from './color';
-import cover from './cover';
-import dimensions from './dimensions';
-import fill from './fill';
 import fixed from './fixed';
 import flex from './flex';
 import font from './font';
+import height from './height';
 import margin from './margin';
 import padding from './padding';
-import radius from './radius';
 import square from './square';
 import transition from './transition';
 import transform from './transform';
-import { configure, wrap } from './utils';
+import { build, configure, wrap } from './utils';
+import width from './width';
 
 const styler = obj => wrap(() => obj);
 
 styler.configure = configure;
+styler.then = wrap;
 styler.with = wrap;
 
-[
-  [animation, 'animation', 'anim', 'a'],
+build(styler, [
+  [animation, 'animation', 'an'],
   [align, 'align', 'al'],
-  [absolute, 'absolute', 'abs', 'a'],
+  [absolute, 'absolute', 'abs'],
   [background, 'background', 'bg'],
-  [border, 'border', 'bor', 'b'],
-  [center, 'center', 'cen', 'cn'],
-  [circle, 'circle', 'cir'],
+  [border, 'border', 'b'],
+  [center, 'center'],
+  [circle, 'circle'],
   [color, 'color', 'c'],
-  [cover, 'cover', 'cov', 'cv'],
-  [dimensions, 'dimensions', 'dimension', 'dim', 'd'],
-  [fill, 'fill', 'fil'],
   [fixed, 'fixed', 'fix'],
-  [flex, 'flex', 'fl', 'fx'],
-  [font, 'font', 'fnt', 'f'],
+  [flex, 'flex', 'fl'],
+  [font, 'font', 'f'],
   [height, 'height', 'h'],
-  [margin, 'margin', 'mar', 'm'],
-  [padding, 'padding', 'pad', 'p'],
-  [radius, 'radius', 'rad', 'r'],
+  [margin, 'margin', 'm'],
+  [padding, 'padding', 'p'],
   [square, 'square', 'sq'],
-  [transition, 'transition', 'ts', 't'],
+  [transition, 'transition', 'tr'],
   [transform, 'transform', 'tf'],
   [width, 'width', 'w'],
-].forEach(([method, ...aliases]) => {
-  const wrapped = wrap(method, styler);
-  aliases.forEach(alias => styler[alias] = wrapped);
-})
+]);
 
 export default styler;

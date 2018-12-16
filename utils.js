@@ -5,6 +5,25 @@ const config = {
   mode: MODE_STRICT,
 };
 
+export const build = (base, config) => {
+  const extend = (method, alias) =>
+    base[alias] = wrap(method, base);
+  config.forEach(([pack, name, alias]) => {
+    const useAlias = alias || name;
+    if (typeof pack === 'object') {
+      Object.entries(pack).forEach(([key, method]) => {
+        if (key === name) {
+          extend(method, useAlias);
+        } else {
+          extend(method, `${useAlias}${key}`);
+        }
+      });
+    } else {
+      extend(pack, useAlias);
+    }
+  });
+};
+
 export const configure = ({ mode }) => {
   if (
     !mode
@@ -16,27 +35,28 @@ export const configure = ({ mode }) => {
 };
 
 export const convert = (value = null, forceMode = '') => {
+  const mode = getMode(forceMode);
   if (isEmpty(value)) {
-    if (getMode(forceMode) === MODE_STRICT) {
-      return undefined;
+    if (mode === MODE_CSS) {
+      return 'initial';
     }
-    return 'initial';
+    return null;
   }
-  if (getMode(forceMode) === MODE_STRICT) {
-    if (
-      isString(value)
-      && /^[ ]*[0-9.-]+(em|ms|pt|px|rm|s|vmax|vmin)?[ ]*$/.test(value)
-    ) {
-      const unit = (value.match(/([a-z]+)/i) || [])[0] || '';
-      const num = parseInt(value, 10) || 0;
-      if (unit === 's') {
-        return num * 1000;
-      }
-      return num;
+  if (mode === MODE_CSS) {
+    return unit(value);
+  }
+  if (
+    isString(value)
+    && /^[ ]*[0-9.-]+(em|ms|pt|px|rm|s|vmax|vmin)?[ ]*$/.test(value)
+  ) {
+    const unit = (value.match(/([a-z]+)/i) || [])[0] || '';
+    const num = parseInt(value, 10) || 0;
+    if (unit === 's') {
+      return num * 1000;
     }
-    return value;
+    return num;
   }
-  return unit(value);
+  return value;
 };
 
 export const filter = obj => Object.entries(obj).reduce(
@@ -111,7 +131,7 @@ export const unit = (value = null, append = 'px') => {
   return str;
 };
 
-export const wrap = (method, originator) => (...args) => {
+export const wrap = (method, base) => (...args) => {
   const pass = args.length === 1 && isString(args[0])
     ? parse(args[0])
     : args;
@@ -125,7 +145,7 @@ export const wrap = (method, originator) => (...args) => {
     {},
   );
   const extend = { ...converted };
-  Object.entries(originator).forEach(([key, value]) => {
+  Object.entries(base).forEach(([key, value]) => {
     Object.defineProperty(
       extend,
       key,
