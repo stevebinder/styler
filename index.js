@@ -15,14 +15,13 @@ import padding from './padding';
 import square from './square';
 import transition from './transition';
 import transform from './transform';
-import { build, configure, wrap } from './utils';
+import { build, configure, extend, wrap } from './utils';
 import width from './width';
 
-const styler = obj => wrap(() => obj);
+const styler = obj => wrap(() => obj, styler)();
 
-styler.configure = configure;
-styler.then = wrap;
-styler.with = wrap;
+extend(styler, 'configure', configure);
+extend(styler, 'then', wrap);
 
 build(styler, [
   [animation, 'animation', 'an'],

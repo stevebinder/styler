@@ -6,22 +6,49 @@ const config = {
 };
 
 export const build = (base, config) => {
-  const extend = (method, alias) =>
+  const inject = (method, alias) =>
     base[alias] = wrap(method, base);
   config.forEach(([pack, name, alias]) => {
     const useAlias = alias || name;
     if (typeof pack === 'object') {
       Object.entries(pack).forEach(([key, method]) => {
         if (key === name) {
-          extend(method, useAlias);
+          inject(method, useAlias);
         } else {
-          extend(method, `${useAlias}${key}`);
+          inject(method, `${useAlias}${key}`);
         }
       });
     } else {
-      extend(pack, useAlias);
+      inject(pack, useAlias);
     }
   });
+};
+
+const chain = (base, result) => {
+  const fn = (...args) => chain(
+    base,
+    {
+      ...result,
+      ...base(...args),
+    },
+  );
+  Object
+    .entries(result)
+    .forEach(([key, value]) => fn[key] = value);
+  Object
+    .keys(base)
+    .forEach(key => extend(
+      fn,
+      key,
+      (...args) => chain(
+        base,
+        {
+          ...result,
+          ...base[key](...args),
+        },
+      ),
+    ));
+  return fn;
 };
 
 export const configure = ({ mode }) => {
@@ -58,6 +85,12 @@ export const convert = (value = null, forceMode = '') => {
   }
   return value;
 };
+
+export const extend = (base, key, value) => Object.defineProperty(
+  base,
+  key,
+  { enumerable: false, value },
+);
 
 export const filter = obj => Object.entries(obj).reduce(
   (result, [key, value]) => isEmpty(value)
@@ -144,19 +177,5 @@ export const wrap = (method, base) => (...args) => {
     }),
     {},
   );
-  const extend = { ...converted };
-  Object.entries(base).forEach(([key, value]) => {
-    Object.defineProperty(
-      extend,
-      key,
-      {
-        enumerable: false,
-        value: (...args) => ({
-          ...converted,
-          ...value(...args),
-        }),
-      },
-    );
-  });
-  return extend;
+  return chain(base, converted);
 };
