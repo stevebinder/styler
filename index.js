@@ -40,12 +40,14 @@ styler.with = wrap;
   [fixed, 'fixed', 'fix'],
   [flex, 'flex', 'fl', 'fx'],
   [font, 'font', 'fnt', 'f'],
+  [height, 'height', 'h'],
   [margin, 'margin', 'mar', 'm'],
   [padding, 'padding', 'pad', 'p'],
   [radius, 'radius', 'rad', 'r'],
   [square, 'square', 'sq'],
   [transition, 'transition', 'ts', 't'],
   [transform, 'transform', 'tf'],
+  [width, 'width', 'w'],
 ].forEach(([method, ...aliases]) => {
   const wrapped = wrap(method, styler);
   aliases.forEach(alias => styler[alias] = wrapped);

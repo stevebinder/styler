@@ -130,12 +130,14 @@ Joe is now the office hero. Not only is he twice as fast at styling and can't co
 |**fixed**```(top, right, bottom, left)```|fix|
 |**flex**```(grow, shrink, basis)```|fl, fx|
 |**font**```(style, variant, weight, size, family)```|fnt, f|
+|**height**```(height)```|h|
 |**margin**```(top, right, bottom, left)```|mar, m|
 |**padding**```(top, right, bottom, left)```|pad, p|
 |**radius**```(topLeft, topRight, bottomLeft, bottomRight)```|rad, r|
 |**square**```(size)```|sq|
 |**transition**```(...args)```|ts, t|
 |**transform**```(...args)```|tr|
+|**width**```(width)```|w|
 
 ## Configuration
 By default, Styler runs in **strict** mode which means it converts all numerical values to numbers. However, you may want to generate valid css in which case all numerical values will be converted to strings.
